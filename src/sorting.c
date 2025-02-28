@@ -31,7 +31,6 @@ void bubble_sort(int array[], int size) {
 void selection_sort(int array[], int size) {
   for (int i = 0; i < size - 1; i++) {
     int min_idx = i;
-    int temp_a = array[i];
 
     for (int j = i + 1; j < size; j++) {
       if (array[min_idx] > array[j]) {
@@ -40,8 +39,9 @@ void selection_sort(int array[], int size) {
     }
 
     if (min_idx != i) {
+      int temp = array[i];
       array[i] = array[min_idx];
+      array[min_idx] = temp;
     }
-    array[min_idx] = temp_a;
   }
 }
