@@ -1,4 +1,6 @@
 #include "../include/sorting.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void bubble_sort(int array[], int size) {
   int is_sorted = 0;
@@ -44,4 +46,53 @@ void selection_sort(int array[], int size) {
       array[min_idx] = temp;
     }
   }
+}
+
+void merge(int array[], int start, int mid, int end) {
+  int *temp = malloc((end - start + 1) * sizeof(int));
+
+  int left_idx = start;
+  int right_idx = mid + 1;
+  int k = 0;
+
+  while (left_idx <= mid && right_idx <= end) {
+    if (array[left_idx] <= array[right_idx]) {
+      temp[k] = array[left_idx];
+      left_idx++;
+    } else {
+      temp[k] = array[right_idx];
+      right_idx++;
+    }
+    k++;
+  }
+
+  while (left_idx <= mid) {
+    temp[k] = array[left_idx];
+    left_idx++;
+    k++;
+  }
+
+  while (right_idx <= end) {
+    temp[k] = array[right_idx];
+    right_idx++;
+    k++;
+  }
+
+  for (int i = 0; i < end - start + 1; i++) {
+    array[start + i] = temp[i];
+  }
+
+  free(temp);
+}
+
+void merge_sort(int array[], int start, int end) {
+  if (start >= end)
+    return;
+
+  int mid = (start + end) / 2;
+
+  merge_sort(array, start, mid);
+  merge_sort(array, mid + 1, end);
+
+  merge(array, start, mid, end);
 }
