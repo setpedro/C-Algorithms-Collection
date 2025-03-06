@@ -96,3 +96,32 @@ void merge_sort(int array[], int start, int end) {
 
   merge(array, start, mid, end);
 }
+
+int partition(int array[], int start, int end) {
+  int pivot = array[end];
+  int new_pivot_idx = start - 1;
+
+  for (int j = start; j < end; j++) {
+    if (array[j] <= pivot) {
+      new_pivot_idx++;
+      int temp = array[new_pivot_idx];
+      array[new_pivot_idx] = array[j];
+      array[j] = temp;
+    }
+  }
+  new_pivot_idx++;
+  int temp = array[new_pivot_idx];
+  array[new_pivot_idx] = array[end];
+  array[end] = temp;
+
+  return new_pivot_idx;
+}
+
+void quick_sort(int array[], int start, int end) {
+  if (start >= end)
+    return;
+
+  int new_pivot_idx = partition(array, start, end);
+  quick_sort(array, start, new_pivot_idx - 1);
+  quick_sort(array, new_pivot_idx + 1, end);
+}
